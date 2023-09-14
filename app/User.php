@@ -44,4 +44,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\SocialProfile');
     }
+
+    // Método para devolver la imágen de perfil de usuario
+    public function adminlte_image() {
+        return 'https://picsum.photos/300/300';
+    }
 }
