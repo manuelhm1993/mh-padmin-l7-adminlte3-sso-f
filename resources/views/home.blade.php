@@ -7,18 +7,20 @@
 @stop
 
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            <h1 class="card-title">Hola mundo</h1>
-        </div>
+    @for ($i = 0; $i < 10; $i++)
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Hola mundo</h1>
+            </div>
 
-        <div class="card-body">
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident mollitia, laborum magnam ut numquam rem ad quas
-                omnis tempore dolore rerum id perspiciatis qui adipisci aperiam facere et incidunt distinctio!
-            </p>
+            <div class="card-body">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident mollitia, laborum magnam ut numquam rem ad quas
+                    omnis tempore dolore rerum id perspiciatis qui adipisci aperiam facere et incidunt distinctio!
+                </p>
+            </div>
         </div>
-    </div>
+    @endfor
 @stop
 
 @section('css')
