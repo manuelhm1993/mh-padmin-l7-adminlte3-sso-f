@@ -51,4 +51,14 @@ class User extends Authenticatable
 
         return ($social_profile) ? $social_profile->social_avatar : 'https://picsum.photos/300/300';
     }
+
+    // Método para devolver el rol del usuario
+    public function adminlte_desc() {
+        return "Administrador";
+    }
+
+    // Método para devolver la vista del perfil del usuario
+    public function adminlte_profile_url() {
+        return "profile/username";
+    }
 }
