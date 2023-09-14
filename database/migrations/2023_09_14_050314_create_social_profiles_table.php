@@ -20,7 +20,7 @@ class CreateSocialProfilesTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
             // Información a recuperar del SSO
-            $table->string('social_id');
+            $table->string('social_id')->unique();
             $table->string('social_name');
             $table->string('social_avatar');
 
