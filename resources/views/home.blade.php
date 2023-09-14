@@ -2,6 +2,9 @@
 
 @section('title', 'Dashboard')
 
+{{-- Activar el plugin sweetalert2 en esta vista --}}
+{{-- @section('plugins.Sweetalert2', true) --}}
+
 @section('content_header')
     <h1>Panel administrativo</h1>
 @stop
@@ -28,5 +31,11 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script>
+        Swal.fire(
+            'Good job!',
+            'You clicked the button!',
+            'success'
+        )
+    </script>
 @stop
