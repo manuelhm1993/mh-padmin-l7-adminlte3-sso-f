@@ -32,10 +32,6 @@
 
 @section('js')
     <script>
-        Swal.fire(
-            'Good job!',
-            'You clicked the button!',
-            'success'
-        )
+        console.log('Hola mundo');
     </script>
 @stop
