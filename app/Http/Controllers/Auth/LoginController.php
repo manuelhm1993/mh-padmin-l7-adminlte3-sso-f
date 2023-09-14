@@ -69,6 +69,7 @@ class LoginController extends Controller
      */
     public function handleProviderCallback(Request $request, string $driver)
     {
+        // Comprobar si existe el error de darle al botón de cancelar el SSO
         if($request->error) {
             return redirect()->route('login');
         }
@@ -76,21 +77,23 @@ class LoginController extends Controller
         $userSocialite = Socialite::driver($driver)->user();
         // $userSocialite = Socialite::driver($driver)->stateless()->user();
 
-        $user           = User::where('email', $userSocialite->email)->first();
         $social_profile = SocialProfile::where('social_id', $userSocialite->id)
                                        ->where('social_name', $driver)
                                        ->first();
 
-        // Si el usuario no existe lo creamos
-        if(!$user) {
-            $user = User::create([
-                'email' => $userSocialite->email,
-                'name'  => $userSocialite->name
-            ]);
-        }
-
         // Si el perfil no existe lo creamos
         if(!$social_profile) {
+            // Crear el usuario luego de verificar el perfil, por si el usuario cambia su correo en la red social
+            $user = User::where('email', $userSocialite->email)->first();
+
+            // Si el usuario no existe lo creamos
+            if(!$user) {
+                $user = User::create([
+                    'email' => $userSocialite->email,
+                    'name'  => $userSocialite->name
+                ]);
+            }
+
             $user->socialProfiles()->create([
                 'social_id'     => $userSocialite->id,
                 'social_name'   => $driver,
@@ -98,7 +101,8 @@ class LoginController extends Controller
             ]);
         }
 
-        auth()->login($user);
+        // Acceder a la relación uno a muchos inversa
+        auth()->login($social_profile->user);
 
         return redirect()->route('home');
     }
