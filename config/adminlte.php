@@ -232,11 +232,11 @@ return [
     |
     */
 
-    'right_sidebar' => false,
+    'right_sidebar' => true,
     'right_sidebar_icon' => 'fas fa-cogs',
     'right_sidebar_theme' => 'dark',
     'right_sidebar_slide' => true,
-    'right_sidebar_push' => true,
+    'right_sidebar_push' => false,
     'right_sidebar_scrollbar_theme' => 'os-theme-light',
     'right_sidebar_scrollbar_auto_hide' => 'l',
 
@@ -309,11 +309,36 @@ return [
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'can'  => 'manage-blog', // Permite trabajar con roles y permisos
         ],
         [
             'text'  => 'Dashboard',
             'route' => 'home',
+            'icon'  => 'fas fa-fw fa-home',
+            'label'       => 'Nuevo', // Label o etiqueta del menú
+            'label_color' => 'danger',
+        ],
+        [
+            'text'    => 'Multilevel', // El multinivel es un menú con submenús
+            'submenu' => [
+                [
+                    'text'    => 'Nivel 1',
+                    'submenu' => [ // Se pueden anidar tantos submenús como sean requeridos
+                        [
+                            'text' => 'Nivel 2',
+                            'url'  => '#',
+                        ],
+                        [
+                            'text' => 'Nivel 2',
+                            'url'  => '#',
+                        ],
+                    ]
+                ],
+                [
+                    'text' => 'Nivel 1',
+                    'url'  => '#',
+                ],
+            ]
         ],
         [
             'text'        => 'pages',
