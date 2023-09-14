@@ -7,6 +7,7 @@ use App\User;
 use App\Providers\RouteServiceProvider;
 use App\SocialProfile;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -66,8 +67,12 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback($driver)
+    public function handleProviderCallback(Request $request, string $driver)
     {
+        if($request->error) {
+            return redirect()->route('login');
+        }
+
         $userSocialite = Socialite::driver($driver)->user();
         // $userSocialite = Socialite::driver($driver)->stateless()->user();
 
