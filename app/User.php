@@ -47,6 +47,8 @@ class User extends Authenticatable
 
     // Método para devolver la imágen de perfil de usuario
     public function adminlte_image() {
-        return 'https://picsum.photos/300/300';
+        $social_profile = $this->socialProfiles()->first();
+
+        return ($social_profile) ? $social_profile->social_avatar : 'https://picsum.photos/300/300';
     }
 }

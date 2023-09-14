@@ -94,7 +94,8 @@ class LoginController extends Controller
                 ]);
             }
 
-            $user->socialProfiles()->create([
+            // Crear el social_profile desde la relación con user
+            $social_profile = $user->socialProfiles()->create([
                 'social_id'     => $userSocialite->id,
                 'social_name'   => $driver,
                 'social_avatar' => $userSocialite->avatar,
