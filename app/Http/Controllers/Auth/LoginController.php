@@ -49,7 +49,16 @@ class LoginController extends Controller
      */
     public function redirectToProvider($driver)
     {
-        return Socialite::driver($driver)->redirect();
+        // SSO válidos
+        $drivers = ['facebook'];
+
+        // Verificar si el driver está autorizado
+        if(in_array($driver, $drivers)) {
+            return Socialite::driver($driver)->redirect();
+        }
+        else {
+            return redirect()->route('login')->with('feedback', $driver . ' no es una aplicación válida para hacer login');
+        }
     }
 
     /**

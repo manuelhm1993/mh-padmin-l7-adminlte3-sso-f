@@ -16,6 +16,22 @@
 @section('classes_body'){{ ($auth_type ?? 'login') . '-page' }}@stop
 
 @section('body')
+    {{-- Mensaje flash en caso de no poder hacer login --}}
+    @if (session('feedback'))
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Error.</strong> {{ session('feedback') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="{{ $auth_type ?? 'login' }}-box">
 
         {{-- Logo --}}
