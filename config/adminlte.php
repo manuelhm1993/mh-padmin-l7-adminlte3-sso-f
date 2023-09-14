@@ -499,8 +499,8 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'asset' => true, // Este campo indica si se usa el CDN o se instaló el plugin en el proyecto
+                    'location' => 'vendor/sweetalert2/sweetalert2.all.min.js', // Colocar la ruta relativa
                 ],
             ],
         ],
