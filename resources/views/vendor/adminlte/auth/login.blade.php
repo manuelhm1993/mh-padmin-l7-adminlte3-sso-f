@@ -81,6 +81,13 @@
         </div>
 
     </form>
+
+    <p class="mt-3 mb-2 text-center lead">-o-</p>
+
+    <a href="" class="btn btn-block btn-primary">
+        <i class="fab fa-facebook-f"></i>
+        Iniciar sesión con Facebook
+    </a>
 @stop
 
 @section('auth_footer')
