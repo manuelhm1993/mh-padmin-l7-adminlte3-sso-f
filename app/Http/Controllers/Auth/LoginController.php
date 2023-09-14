@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use App\Providers\RouteServiceProvider;
+use App\SocialProfile;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
@@ -56,9 +59,33 @@ class LoginController extends Controller
      */
     public function handleProviderCallback($driver)
     {
-        $user = Socialite::driver($driver)->user();
-        // $user = Socialite::driver($driver)->stateless()->user();
+        $userSocialite = Socialite::driver($driver)->user();
+        // $userSocialite = Socialite::driver($driver)->stateless()->user();
 
-        dd($user);
+        $user           = User::where('email', $userSocialite->email)->first();
+        $social_profile = SocialProfile::where('social_id', $userSocialite->id)
+                                       ->where('social_name', $driver)
+                                       ->first();
+
+        // Si el usuario no existe lo creamos
+        if(!$user) {
+            $user = User::create([
+                'email' => $userSocialite->email,
+                'name'  => $userSocialite->name
+            ]);
+        }
+
+        // Si el perfil no existe lo creamos
+        if(!$social_profile) {
+            $user->socialProfiles()->create([
+                'social_id'     => $userSocialite->id,
+                'social_name'   => $driver,
+                'social_avatar' => $userSocialite->avatar,
+            ]);
+        }
+
+        auth()->login($user);
+
+        return redirect()->route('home');
     }
 }
