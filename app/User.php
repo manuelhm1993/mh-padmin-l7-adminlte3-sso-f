@@ -36,4 +36,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the SocialProfiles for the user.
+     */
+    public function socialProfiles()
+    {
+        return $this->hasMany('App\SocialProfile');
+    }
 }
